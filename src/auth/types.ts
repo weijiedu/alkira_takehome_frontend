@@ -1,8 +1,11 @@
 export type Role = 'read-only' | 'read-write'
 
-export interface User {
+export interface AuthenticatedUser {
   id: string
   email: string
-  password: string
   role: Role
+}
+
+export interface MockUser extends AuthenticatedUser {
+  password: string
 }

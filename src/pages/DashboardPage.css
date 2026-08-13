@@ -1,0 +1,119 @@
+.dashboard {
+  box-sizing: border-box;
+  max-width: 40rem;
+  margin: 3rem auto;
+  padding: 0 1.25rem;
+}
+
+.dashboard h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.dashboard h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.dashboard h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.dashboard p {
+  margin: 0;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header p {
+  color: #4b5563;
+}
+
+.dashboard button {
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: #08060d;
+  border: 1px solid #08060d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dashboard button.secondary {
+  color: #08060d;
+  background: #fff;
+  border-color: #c8c6cc;
+}
+
+.dashboard button:disabled {
+  color: #6b6375;
+  background: #e5e4e7;
+  border-color: #e5e4e7;
+  cursor: not-allowed;
+}
+
+.dashboard .permission-note {
+  margin: 0 0 1rem;
+  color: #4b5563;
+}
+
+.connection-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.connection-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e4e7;
+  border-radius: 6px;
+}
+
+.connection-card p {
+  color: #4b5563;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.edit-form label {
+  font-weight: 500;
+}
+
+.edit-form input {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 20rem;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+  border: 1px solid #c8c6cc;
+  border-radius: 4px;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}

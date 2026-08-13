@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import { DashboardPage } from './pages/DashboardPage'
 import { LoginPage } from './pages/LoginPage'
 import { MfaPage } from './pages/MfaPage'
@@ -11,7 +12,14 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/mfa" element={<MfaPage />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   )
 }

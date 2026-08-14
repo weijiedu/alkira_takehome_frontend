@@ -1,0 +1,11 @@
+export function getEmailError(email: string): string | undefined {
+  if (!email) {
+    return 'Email is required.'
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return 'Enter a valid email address.'
+  }
+
+  return undefined
+}

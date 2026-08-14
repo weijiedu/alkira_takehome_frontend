@@ -1,23 +1,12 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
+import { getEmailError } from '../validation'
 import './LoginPage.css'
 
 interface FieldErrors {
   email?: string
   password?: string
-}
-
-function getEmailError(email: string): string | undefined {
-  if (!email) {
-    return 'Email is required.'
-  }
-
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return 'Enter a valid email address.'
-  }
-
-  return undefined
 }
 
 function getPasswordError(password: string): string | undefined {

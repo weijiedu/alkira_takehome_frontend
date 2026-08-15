@@ -1,7 +1,7 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
-import './MfaPage.css'
+import './auth.css'
 
 function getCodeError(code: string): string | undefined {
   if (!code) {
@@ -20,6 +20,10 @@ export function MfaPage() {
   const navigate = useNavigate()
   const [code, setCode] = useState('')
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    document.title = 'Verify identity | Alkira'
+  }, [])
 
   // Successful MFA clears pendingUser before this page unmounts. Send that
   // case to the dashboard instead of treating it as a missing login.
@@ -52,42 +56,60 @@ export function MfaPage() {
   }
 
   return (
-    <main className="mfa-page">
-      <h1>Verify your identity</h1>
-      <p className="description">Enter the 6-digit verification code.</p>
+    <main className="auth-page">
+      <div className="auth-card">
+        <p className="auth-brand">Alkira</p>
+        <h1>Verify your identity</h1>
+        <p className="auth-lead">
+          Enter the 6-digit verification code to finish signing in.
+        </p>
+        <p className="auth-context">
+          Continuing as <strong>{pendingUser.email}</strong>
+        </p>
 
-      {/* Native browser bubbles would conflict with the inline field errors. */}
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="field">
-          <label htmlFor="verification-code">Verification code</label>
-          <input
-            id="verification-code"
-            name="one-time-code"
-            type="text"
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            maxLength={6}
-            spellCheck={false}
-            value={code}
-            onChange={handleCodeChange}
-            aria-invalid={error ? true : undefined}
-            aria-describedby={error ? 'code-error' : undefined}
-          />
-          {error ? (
-            <p id="code-error" className="error" role="alert">
-              {error}
+        {/* Native browser bubbles would conflict with the inline field errors. */}
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="field">
+            <label className="field-label" htmlFor="verification-code">
+              Verification code
+            </label>
+            <input
+              className="input"
+              id="verification-code"
+              name="one-time-code"
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={6}
+              spellCheck={false}
+              value={code}
+              onChange={handleCodeChange}
+              aria-invalid={error ? true : undefined}
+              aria-describedby={
+                error ? 'mfa-help code-error' : 'mfa-help'
+              }
+            />
+            <p id="mfa-help" className="field-hint">
+              Enter your 6-digit verification code.
             </p>
-          ) : null}
-        </div>
+            {error ? (
+              <p id="code-error" className="field-error" role="alert">
+                {error}
+              </p>
+            ) : null}
+          </div>
 
-        <button type="submit">Verify</button>
-      </form>
+          <button className="btn btn-primary" type="submit">
+            Verify
+          </button>
+        </form>
 
-      <p className="back-to-login">
-        <Link to="/login" onClick={logout}>
-          Back to login
-        </Link>
-      </p>
+        <p className="auth-footer">
+          <Link className="auth-link" to="/login" onClick={logout}>
+            Back to login
+          </Link>
+        </p>
+      </div>
     </main>
   )
 }

@@ -1,7 +1,7 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { getEmailError } from '../validation'
-import './SignupPage.css'
+import './auth.css'
 
 interface FieldErrors {
   email?: string
@@ -38,6 +38,10 @@ export function SignupPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
   const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    document.title = 'Create account | Alkira'
+  }, [])
 
   function handleEmailChange(event: ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value)
@@ -104,87 +108,115 @@ export function SignupPage() {
   }
 
   return (
-    <main className="signup-page">
-      <h1>Create Account</h1>
-
-      {submitted ? (
-        <p className="success" role="status">
-          Registration is complete for this demo. Please sign in with one of
-          the provided mock accounts.
+    <main className="auth-page">
+      <div className="auth-card">
+        <p className="auth-brand">Alkira</p>
+        <h1>Create account</h1>
+        <p className="auth-lead">
+          Registration is for this demo. Use a mock account to sign in.
         </p>
-      ) : (
-        <form onSubmit={handleSubmit} noValidate>
-          {/* Native browser bubbles would conflict with the inline field errors. */}
-          <div className="field">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              value={email}
-              onChange={handleEmailChange}
-              aria-invalid={fieldErrors.email ? true : undefined}
-              aria-describedby={fieldErrors.email ? 'email-error' : undefined}
-            />
-            {fieldErrors.email ? (
-              <p id="email-error" className="error" role="alert">
-                {fieldErrors.email}
-              </p>
-            ) : null}
+
+        {submitted ? (
+          <div className="auth-success">
+            <p className="field-success" role="status">
+              Registration is complete for this demo. Please sign in with one of
+              the provided mock accounts.
+            </p>
           </div>
+        ) : (
+          <form onSubmit={handleSubmit} noValidate>
+            {/* Native browser bubbles would conflict with the inline field errors. */}
+            <div className="field">
+              <label className="field-label" htmlFor="email">
+                Email
+              </label>
+              <input
+                className="input"
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                value={email}
+                onChange={handleEmailChange}
+                aria-invalid={fieldErrors.email ? true : undefined}
+                aria-describedby={
+                  fieldErrors.email ? 'email-error' : undefined
+                }
+              />
+              {fieldErrors.email ? (
+                <p id="email-error" className="field-error" role="alert">
+                  {fieldErrors.email}
+                </p>
+              ) : null}
+            </div>
 
-          <div className="field">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              value={password}
-              onChange={handlePasswordChange}
-              aria-invalid={fieldErrors.password ? true : undefined}
-              aria-describedby={
-                fieldErrors.password ? 'password-error' : undefined
-              }
-            />
-            {fieldErrors.password ? (
-              <p id="password-error" className="error" role="alert">
-                {fieldErrors.password}
-              </p>
-            ) : null}
-          </div>
+            <div className="field">
+              <label className="field-label" htmlFor="password">
+                Password
+              </label>
+              <input
+                className="input"
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                value={password}
+                onChange={handlePasswordChange}
+                aria-invalid={fieldErrors.password ? true : undefined}
+                aria-describedby={
+                  fieldErrors.password ? 'password-error' : undefined
+                }
+              />
+              {fieldErrors.password ? (
+                <p id="password-error" className="field-error" role="alert">
+                  {fieldErrors.password}
+                </p>
+              ) : null}
+            </div>
 
-          <div className="field">
-            <label htmlFor="confirm-password">Confirm Password</label>
-            <input
-              id="confirm-password"
-              name="confirm-password"
-              type="password"
-              autoComplete="new-password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              aria-invalid={fieldErrors.confirmPassword ? true : undefined}
-              aria-describedby={
-                fieldErrors.confirmPassword
-                  ? 'confirm-password-error'
-                  : undefined
-              }
-            />
-            {fieldErrors.confirmPassword ? (
-              <p id="confirm-password-error" className="error" role="alert">
-                {fieldErrors.confirmPassword}
-              </p>
-            ) : null}
-          </div>
+            <div className="field">
+              <label className="field-label" htmlFor="confirm-password">
+                Confirm password
+              </label>
+              <input
+                className="input"
+                id="confirm-password"
+                name="confirm-password"
+                type="password"
+                autoComplete="new-password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                aria-invalid={fieldErrors.confirmPassword ? true : undefined}
+                aria-describedby={
+                  fieldErrors.confirmPassword
+                    ? 'confirm-password-error'
+                    : undefined
+                }
+              />
+              {fieldErrors.confirmPassword ? (
+                <p
+                  id="confirm-password-error"
+                  className="field-error"
+                  role="alert"
+                >
+                  {fieldErrors.confirmPassword}
+                </p>
+              ) : null}
+            </div>
 
-          <button type="submit">Create Account</button>
-        </form>
-      )}
+            <button className="btn btn-primary" type="submit">
+              Create account
+            </button>
+          </form>
+        )}
 
-      <p className="login-prompt">
-        Already have an account? <Link to="/login">Sign in</Link>
-      </p>
+        <p className="auth-footer">
+          Already have an account?{' '}
+          <Link className="auth-link" to="/login">
+            Sign in
+          </Link>
+        </p>
+      </div>
     </main>
   )
 }

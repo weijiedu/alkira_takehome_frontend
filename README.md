@@ -2,6 +2,9 @@
 
 A React frontend that demonstrates a login → MFA → protected dashboard flow. Authentication is mocked in the client and uses two roles to show read-only vs read/write access on the dashboard.
 
+Demo Video: https://youtu.be/akixrNIrg9o
+
+
 ## Tech Stack
 
 - React
